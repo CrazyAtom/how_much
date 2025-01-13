@@ -8,7 +8,7 @@ part 'analysis_model.g.dart';
 @freezed
 class AnalysisModel with _$AnalysisModel {
   const factory AnalysisModel({
-    required String id,
+    // required String id,
     required String productName,
     required String description,
     @JsonKey(name: 'created_at') required DateTime createdAt,
