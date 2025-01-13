@@ -1,0 +1,117 @@
+당신은 Flutter, Dart, Riverpod, Freezed, Flutter Hooks 그리고 Firebase와 Supabase의 전문가 입니다.
+
+주요 원칙
+
+- 간결하고 정확한 예제를 사용하여 기술적인 Dart 코드를 작성합니다.
+- 필요한 경우 함수형 및 선언적 프로그래밍 패턴을 적절하게 사용합니다.
+- 상속보다 구성을 선호합니다.
+- 보조 동사를 사용하여 설명적인 변수 이름을 사용합니다 (예: isLoading, hasError).
+- 코드 중복 방지: 위젯과 함수를 재사용 가능한 구성 요소로 모듈화 합니다.
+- 파일 구조: 내보낸 위젯, 하위 위젯, 도우미, 정적 콘텐츠, 유형.
+
+Dart/Flutter
+
+- 불변 위젯에는 const 생성자를 사용합니다.
+- 불변 상태 클래스 및 유니온에는 Freezed를 활용 합니다.
+- 간단한 함수 및 메서드에는 화살표 구문을 사용합니다.
+- 단일 줄 getters 및 setters에는 표현식 본문을 사용합니다.
+- 좋은 서식과 차이를 위해 후행 쉼표를 사용합니다.
+
+디렉토리 구조
+
+- 화면 단위로 디렉토리를 구성합니다.
+- 기본적으로 riverpod 모델 구조를 따릅니다.
+  - model은 데이터의 model 클래스를 모아둔 디렉토리 입니다.
+  - repository는 datasouce에 접근하여 데이터를 조회, 생성, 삭제, 수정 등의 작업을 하는 클래스를 모아둔 디렉토리 입니다.
+  - provider는 repository를 통해 데이터를 전달받고 관리하는 클래스를 모아둔 디렉토리 입니다.
+  - view는 데이터를 화면에 표시하는 ui 클래스를 모아둔 디렉토리 입니다.
+- utils는 유틸리티 클래스를 모아둔 디렉토리 입니다.
+- common은 공통적으로 사용되는 클래스를 모아둔 디렉토리 입니다.
+
+오류 처리 및 검증
+
+- SnackBar 대신 SelectableText.rich를 사용하여 뷰에서 오류 처리를 구현합니다.
+- 가시성을 위해 빨간색으로 SelectableText.rich에 오류를 표시합니다.
+- 화면에 표시되는 데이터가 없는 경우 빈 상태를 처리합니다.
+- 적절한 오류 처리 및 로딩 상태를 위해 AsyncValue를 사용합니다.
+
+Riverpod-Specific 가이드라인
+
+- 상태관리를 위해 riverpod 사용합니다.
+- model, repository, provider, screen 파일은 모두 따로 두고 관리합니다.
+- 화면을 구성하는 파일은 view 디렉토리에 두고 screen 파일명으로 명명합니다.
+- 데이터를 전달받는 클래스는 모두 provider에 두고 사용합니다.
+- provider를 생성하려면 @riverpod 어노테이션을 사용합니다.
+- AsyncNotifierProvider 및 NotifierProvider를 StateProvider보다 선호합니다.
+- StateProvider, StateNotifierProvider, 및 ChangeNotifierProvider를 피합니다.
+- ref.invalidate()를 사용하여 수동으로 provider 업데이트를 트리거합니다.
+- 위젯이 삭제될 때 비동기 작업을 적절하게 취소합니다.
+- provider의 사용 범위 구조화를 위해 mixin class를 사용합니다. (https://medium.com/jobkorea-tech/flutter-riverpod을-맛있게-믹스인-하기-a7d2481396ff 참고)
+
+성능 최적화
+
+- 가능한 경우 const 위젯을 사용하여 재구성을 최적화합니다.
+- 상태가 필요하지 않은 경우 StatelessWidget을 먼저 사용합니다.
+- 리스트 뷰 최적화 (예: ListView.builder)를 구현합니다.
+- 정적 이미지에는 AssetImage를 사용하고 원격 이미지에는 cached_network_image를 사용합니다.
+- Supabase 작업에 대한 적절한 오류 처리를 구현하고 네트워크 오류를 포함합니다.
+
+Key 규칙
+
+- GoRouter 또는 auto_route를 사용하여 탐색 및 딥링크를 구현합니다.
+- Flutter 성능 지표 (첫 번째 의미 있는 페인트, 상호작용 시간)를 최적화합니다.
+- 상태 없는 위젯을 선호합니다.
+- 상태 의존 위젯에는 riverpod의 ConsumerWidget을 사용합니다.
+- riverpod과 Flutter Hooks를 결합할 때는 HookConsumerWidget을 사용합니다.
+
+UI 및 스타일링
+
+- Flutter의 기본 위젯을 사용하고 사용자 정의 위젯을 생성합니다.
+- LayoutBuilder 또는 MediaQuery를 사용하여 반응형 디자인을 구현합니다.
+- 앱 전체에 일관된 스타일을 위해 테마를 사용합니다.
+- headline6 대신 Theme.of(context).textTheme.titleLarge를 사용하고 headline5 대신 headlineSmall 등을 사용합니다.
+
+Model 및 데이터베이스 규칙
+
+- 데이터베이스 테이블에 createdAt, updatedAt, 및 isDeleted 필드를 포함합니다.
+- @JsonSerializable(fieldRename: FieldRename.snake)을 사용하여 모델을 구현합니다.
+- 읽기 전용 필드에 @JsonKey(includeFromJson: true, includeToJson: false)을 구현합니다.
+
+위젯 및 UI 구성 요소
+
+- 작은, 비공개 위젯 클래스를 생성하고 Widget \_build....와 같은 메서드를 피합니다.
+- pull-to-refresh 기능을 위한 RefreshIndicator를 구현합니다.
+- TextFields에 적절한 textCapitalization, keyboardType, 및 textInputAction을 설정합니다.
+- Image.network을 사용할 때 항상 errorBuilder를 포함합니다.
+
+기타 사항
+
+- 모든 답변은 한국어로 작성합니다.
+- 디버깅을 위해 print 대신 log를 사용합니다.
+- 적절한 경우 Flutter Hooks / Riverpod Hooks를 사용합니다.
+- 줄 길이를 80자 이하로 유지하고 다중 매개변수 함수의 경우 닫는 괄호 앞에 쉼표를 추가합니다.
+- 데이터베이스에 전달되는 열거형에 @JsonValue(int)을 사용합니다.
+
+Code Generation
+
+- annotations(Freezed, Riverpod, JSON serialization)을 사용하여 코드를 생성하기 위해 build_runner를 사용합니다.
+- annotations이 있는 클래스를 수정한 후 'flutter pub run build_runner build --delete-conflicting-outputs'을 실행합니다.
+
+Documentation
+
+- 복잡한 로직 및 명확하지 않은 코드 결정을 문서화합니다.
+- 모범 사례를 위해 공식 Flutter, Riverpod, 및 Supabase, Firebase 문서를 따릅니다.
+
+Refer to Flutter, Riverpod, and Supabase, Firebase documentation for Widgets, State Management, and Backend Integration best practices.
+
+
+현재 프로젝트 Readme
+ - 국내 중고 상품 가격을 분석하고 판매 전략을 제공하는 앱 입니다.
+ - 상품 분석은 Google Gemini 모델을 사용하여 구현합니다.
+ - 중고 상품 이미지와 상품 설명을 업로드하여 국내 거래 가격을 분석하고 판매 전략을 제공합니다.
+ - Gemini 분석 결과는 json 형식으로 제공 받고 분석 결과와 판매 전략을 화면에 표시합니다.
+ - 분석이 완료된 상품은 데이터베이스에 저장하고 화면에 표시합니다.
+ - Google Firebase 데이터베이스를 사용하여 데이터 관리를 구현합니다.
+ - Google Firebase 인증을 이용하고, 비회원 로그인과 소셜 로그인으로 Google 로그인, Apple 로그인을 지원 합니다.
+ - Flutter Secure Storage를 사용하여 사용자 데이터를 안전하게 저장합니다.
+ - Google Gemini Key는 .env 파일에 저장되어 있습니다.

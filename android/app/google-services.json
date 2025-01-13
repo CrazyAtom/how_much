@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "274756380890",
+    "project_id": "how-much-crazyatom",
+    "storage_bucket": "how-much-crazyatom.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274756380890:android:609203e031ab7fdd0e5de3",
+        "android_client_info": {
+          "package_name": "com.howmuch.crazyatom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANBeSP9JIpR83kNkQjrMZcGG0HwdkJAsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

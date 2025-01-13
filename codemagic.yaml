@@ -1,0 +1,5 @@
+workflows:
+  ios-workflow:
+    environment:
+      vars:
+        GEMINI_API_KEY: $GEMINI_API_KEY
